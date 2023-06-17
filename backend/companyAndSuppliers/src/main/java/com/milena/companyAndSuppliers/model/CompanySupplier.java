@@ -46,11 +46,14 @@ public class CompanySupplier {
         this.supplier = supplier;
     }
 
-    public CompanySupplier() {
+    public CompanySupplier(Long companyId, Long supplierId) {
     }
 
-    public CompanySupplier(Company company, Supplier supplier) {
+    public CompanySupplier(Company company, Supplier supplier, Long id, Long supplier_id) {
         this.company = company;
         this.supplier = supplier;
+        this.id = id;
+        this.getSupplierId = supplier_id;
+
     }
 }

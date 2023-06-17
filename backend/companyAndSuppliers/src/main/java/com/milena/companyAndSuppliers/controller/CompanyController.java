@@ -45,7 +45,7 @@ public class CompanyController {
     }
 
     @GetMapping("/business_name/{businessName}")
-    public ResponseEntity<List<Company>> retrieveCompanyByBusinessNAme(@PathVariable final String businessName) throws Exception {
+    public ResponseEntity<List<Company>> retrieveCompanyByBusinessName(@PathVariable final String businessName) throws Exception {
         final List<Company> companies = companyService.retrieveCompanyByBusinessName(businessName);
         return new ResponseEntity<List<Company>>(companies, HttpStatus.OK);
     }

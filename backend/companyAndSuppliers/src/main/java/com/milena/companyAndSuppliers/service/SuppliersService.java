@@ -14,7 +14,7 @@ public class SuppliersService {
     private final SupplierRepository supplierRepository;
     @Autowired
 
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     CEPValidator cepValidator = new CEPValidator(restTemplate);
 
     public SuppliersService(SupplierRepository supplierRepository){
@@ -24,7 +24,10 @@ public class SuppliersService {
     public Supplier createSupplier(final Supplier supplierData) throws Exception {
         boolean isCepValid = cepValidator.validateCEP(supplierData.getCep());
         boolean isParana = cepValidator.isParana(supplierData.getCep());
-        if (isParana == true) {System.out.println("PARANA");}
+
+        if (isParana == true) {
+            System.out.println("PARANA");
+        }
         if (isCepValid) {
         if (supplierData.getCpfCnpj().length() == 11) {
             final Supplier supplier = new Supplier(supplierData.getName(),
@@ -50,7 +53,7 @@ public class SuppliersService {
     }
 
     public Supplier retrieveSupplierById(final long id) throws Exception {
-        final Supplier supplier = supplierRepository.findById(id).orElseThrow();
+        final Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new Exception("supplier not found by id"));
         return supplier;
     }
     public List<Supplier> retrieveSupplierByName(final String name) throws Exception {

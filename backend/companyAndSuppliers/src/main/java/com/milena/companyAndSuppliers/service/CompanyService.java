@@ -12,7 +12,7 @@ import java.util.List;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     CEPValidator cepValidator = new CEPValidator(restTemplate);
 
     public CompanyService(CompanyRepository companyRepository) {
