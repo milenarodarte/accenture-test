@@ -1,10 +1,10 @@
 # Back-end API Companies-Suppliers
 
 ### Postos a se destacar:
-#### Essa APi foi feita sem nenhuma experiência prévia na linguagem Java, sendo, além do meu primeito contato com uma linguagem fortemente tipada, o primeiro trabalho com programação POO. Foi desenvolvida em 3 dias e meio. 
+#### Essa APi foi feita sem nenhuma experiência prévia na linguagem Java, sendo, além do meu primeiro contato com uma linguagem fortemente tipada, o primeiro trabalho com programação POO. Foi desenvolvida em 3 dias e meio. 
 
-### Linguagem de programação escolhida: Java com framkework Springboot. 
-#### BIBLIOTECA JPA para auxiliar para auxiliar no acesso e manipulação do banco de dados.
+### Linguagem de programação escolhida: Java com framework Springboot. 
+#### BIBLIOTECA JPA para auxiliar no acesso e manipulação do banco de dados.
 #### SPRING MVC para auxiliar com solicitações e respostas HTTP.
 #### SPRING SERIALIZR para construir e inicilizar o projeto com Spring boot.
 #### MAVEN para compilar e gerir dependências.
