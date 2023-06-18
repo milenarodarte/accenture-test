@@ -1,5 +1,4 @@
 package com.milena.companyAndSuppliers.service;
-
 import com.milena.companyAndSuppliers.Exception.AppException;
 import com.milena.companyAndSuppliers.model.CompanySupplier;
 import com.milena.companyAndSuppliers.model.Supplier;
@@ -9,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
 @Service
 public class SuppliersService {
 
@@ -71,9 +67,11 @@ public class SuppliersService {
     }
 
     public Supplier retrieveSupplierById(final long id) {
+
         final Supplier supplier = supplierRepository.findById(id).orElseThrow(()
                 -> new AppException("supplier not found by id", HttpStatus.NOT_FOUND));
         return supplier;
+
     }
     public List<Supplier> retrieveSupplierByName(final String name) {
         final List<Supplier> suppliers = supplierRepository.findAllByName(name);

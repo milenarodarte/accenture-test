@@ -1,7 +1,5 @@
 package com.milena.companyAndSuppliers.model;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name="company_supplier")
 public class CompanySupplier {

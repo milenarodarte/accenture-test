@@ -3,17 +3,14 @@ import com.milena.companyAndSuppliers.Exception.AppException;
 import com.milena.companyAndSuppliers.model.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.milena.companyAndSuppliers.model.Company;
 import com.milena.companyAndSuppliers.model.CompanySupplier;
-
 import com.milena.companyAndSuppliers.repository.CompanyRepository;
 import com.milena.companyAndSuppliers.repository.CompanySupplierRepository;
 import com.milena.companyAndSuppliers.repository.SupplierRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,7 +19,6 @@ import java.util.List;
 @Service
 public class CompanySupplierService {
     private static final Logger logger = LoggerFactory.getLogger(CompanySupplierService.class);
-
     private final CompanySupplierRepository companySupplierRepository;
     private final CompanyRepository companyRepository ;
     private final SupplierRepository supplierRepository;
@@ -62,7 +58,6 @@ public class CompanySupplierService {
                 throw new AppException("CompanySuppliers not found by supplierId and SupplierId", HttpStatus.NOT_FOUND);
             }
         }
-
          public List<CompanySupplier> addSupplierToCompany (final Long companyId, Long supplierId) throws Exception {
 
             final Company companyFound = companyRepository.findById(companyId).orElseThrow(()
@@ -92,7 +87,6 @@ public class CompanySupplierService {
                         HttpStatus.BAD_REQUEST);
             }
         };
-
         public void deleteCompanySupplier(final long companyId, long supplierId) {
             final Company companyFound = companyRepository.findById(companyId).orElseThrow(()
                     -> new AppException("company not found by Id", HttpStatus.NOT_FOUND));
@@ -101,11 +95,6 @@ public class CompanySupplierService {
             } catch (Exception e) {
                 throw new AppException("SupplierId not found", HttpStatus.NOT_FOUND);
             }
-
         }
-
-
-
-
 }
 

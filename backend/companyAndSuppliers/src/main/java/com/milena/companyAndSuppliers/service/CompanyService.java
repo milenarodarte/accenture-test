@@ -1,12 +1,10 @@
 package com.milena.companyAndSuppliers.service;
-
 import com.milena.companyAndSuppliers.Exception.AppException;
 import com.milena.companyAndSuppliers.model.Company;
 import com.milena.companyAndSuppliers.repository.CompanyRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
 @Service
@@ -75,11 +73,11 @@ public class CompanyService {
             throw new AppException("Invalid CEP", HttpStatus.BAD_REQUEST);
         }
     };
+
     public void deleteCompany(final long id) {
         final Company companyToBeDeleted = companyRepository.findById(id).orElseThrow(()
                 -> new AppException("Company not found by id", HttpStatus.NOT_FOUND));
         companyRepository.delete(companyToBeDeleted);
     }
-
 
 }
