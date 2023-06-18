@@ -61,7 +61,7 @@ public class CompanyController {
         final List<CompanySupplier> companyWithSupplier = companySupplierService.addSupplierToCompany(Long.parseLong(companyId), Long.parseLong(supplierId));
         return new ResponseEntity<>(companyWithSupplier, HttpStatus.CREATED);
     }
-    @DeleteMapping("/{companyId}/supplier_id/{supplierId}")
+    @DeleteMapping("/{companyId}/supplier/{supplierId}")
     public ResponseEntity<Void> deleteCompanySupplier(@PathVariable final String companyId, @PathVariable final String supplierId)  {
         companySupplierService.deleteCompanySupplier(Long.parseLong(companyId), Long.parseLong(supplierId));
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
