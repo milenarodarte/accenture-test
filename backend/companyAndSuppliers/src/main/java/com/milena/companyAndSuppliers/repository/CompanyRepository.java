@@ -14,4 +14,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
 
     @Query("SELECT c FROM Company c WHERE c.cnpj = :cnpj")
     Optional<Company> findByCnpj(@Param("cnpj") String cnpj);
+
+    List<Company> findCompaniesBySuppliersId(Long supplierId);
 }

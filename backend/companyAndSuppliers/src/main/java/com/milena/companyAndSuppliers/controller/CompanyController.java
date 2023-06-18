@@ -1,8 +1,10 @@
 package com.milena.companyAndSuppliers.controller;
 
 import com.milena.companyAndSuppliers.model.Company;
+import com.milena.companyAndSuppliers.model.CompanySupplier;
 import com.milena.companyAndSuppliers.model.Supplier;
 import com.milena.companyAndSuppliers.service.CompanyService;
+import com.milena.companyAndSuppliers.service.CompanySupplierService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,11 @@ import java.util.List;
 @RequestMapping("/companies")
 public class CompanyController {
     private final CompanyService companyService;
+    private final CompanySupplierService companySupplierService;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, CompanySupplierService companySupplierService) {
         this.companyService = companyService;
+        this.companySupplierService = companySupplierService;
     }
 
     @PostMapping
@@ -62,7 +66,16 @@ public class CompanyController {
         return new ResponseEntity<Void>( HttpStatus.NO_CONTENT);
     }
 
-
+    @PostMapping("/{companyId}/supplier/{supplierId}")
+    public ResponseEntity<List<CompanySupplier>> addSupplierToCompany(@PathVariable final String companyId, @PathVariable final String supplierId) throws Exception {
+        final List<CompanySupplier> companyWithSupplier = companySupplierService.addSupplierToCompany(Long.parseLong(companyId), Long.parseLong(supplierId));
+        return new ResponseEntity<>(companyWithSupplier, HttpStatus.CREATED);
+    }
+    @DeleteMapping("/{companyId}/supplier_id/{supplierId}")
+    public ResponseEntity<Void> deleteCompanySupplier(@PathVariable final String companyId, @PathVariable final String supplierId) throws Exception {
+        companySupplierService.deleteCompanySupplier(Long.parseLong(companyId), Long.parseLong(supplierId));
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
 
 
 }

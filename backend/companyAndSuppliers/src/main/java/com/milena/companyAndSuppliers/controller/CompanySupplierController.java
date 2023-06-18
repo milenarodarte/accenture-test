@@ -19,37 +19,30 @@ public class CompanySupplierController {
         this.companySupplierService =companySupplierService;
     }
 
-    @PostMapping
-    public ResponseEntity<CompanySupplier> createCompanySupplier (@RequestBody final CompanySupplier companySupplierData){
-        System.out.println(companySupplierData);
-        final CompanySupplier createdCompanySupplier = companySupplierService.createCompanySupplier(companySupplierData);
-        return new ResponseEntity<CompanySupplier>(createdCompanySupplier, HttpStatus.CREATED);
-    }
     @GetMapping
     public ResponseEntity<List<CompanySupplier>> readCompaniesSuppliers(){
         final List<CompanySupplier> allCompaniesSuppliers = companySupplierService.readCompanySupplier();
         return new ResponseEntity<List<CompanySupplier>>(allCompaniesSuppliers, HttpStatus.OK);
     }
-    /*@GetMapping("/companyId/{companyId}")
-    public ResponseEntity<List<CompanySupplier>> retrieveSupplierCompanyId(@PathVariable final String companyId) throws Exception {
-        final List<CompanySupplier> companySuppliers = companySupplierService.retrieveSupplierByCompanyId(Long.parseLong(companyId));
-        return new ResponseEntity<List<CompanySupplier>>(companySuppliers, HttpStatus.OK);
-    };
-    @GetMapping("/suppliersId/{suppliersId}")
-    public ResponseEntity<List<CompanySupplier>> retrieveCompanySupplierBySuppliersId(@PathVariable final String suppliersId) throws Exception {
-        final List<CompanySupplier> companySuppliers = companySupplierService.retrieveCompanySupplierBySupplierId(Long.parseLong(suppliersId));
-        return new ResponseEntity<List<CompanySupplier>>(companySuppliers, HttpStatus.OK);
-    };*/
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CompanySupplier> retrieveCompanySupplierById(@PathVariable final String id) throws Exception {
-        final CompanySupplier companySupplier = companySupplierService.retrieveCompanySupplierById(Long.parseLong(id));
-        return new ResponseEntity<CompanySupplier>(companySupplier, HttpStatus.OK);
+    @GetMapping("/company_id/{companyId}")
+    public ResponseEntity<List<CompanySupplier>> readCompaniesSuppliersByCompanyId(@PathVariable final String companyId) throws Exception {
+        final List<CompanySupplier> companiesSuppliers = companySupplierService.readCompanySupplierByCompanyId(Long.parseLong(companyId));
+        return new ResponseEntity<List<CompanySupplier>>(companiesSuppliers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompanySupplier(@PathVariable final String id) throws Exception {
-        companySupplierService.deleteCompanySupplier(Long.parseLong(id));
-        return new ResponseEntity<Void>( HttpStatus.NO_CONTENT);
+    @GetMapping("/supplier_id/{supplierId}")
+    public ResponseEntity<List<CompanySupplier>> readCompaniesSuppliersBySupplierId(@PathVariable final String supplierId) throws Exception {
+        final List<CompanySupplier> companiesSuppliers = companySupplierService.readCompanySupplierBySupplierId(Long.parseLong(supplierId));
+        return new ResponseEntity<List<CompanySupplier>>(companiesSuppliers, HttpStatus.OK);
     }
+    @GetMapping("/company_id/{companyId}/supplier_id/{supplierId}")
+    public ResponseEntity<List<CompanySupplier>> readCompaniesSuppliersBySupplierId( @PathVariable final String companyId,@PathVariable final String supplierId) throws Exception {
+        final List<CompanySupplier> companiesSuppliers = companySupplierService.readCompanySupplierByCompanyIdAndSupplierId(Long.parseLong(companyId) ,Long.parseLong(supplierId));
+        return new ResponseEntity<List<CompanySupplier>>(companiesSuppliers, HttpStatus.OK);
+    }
+
+
+
+
 }

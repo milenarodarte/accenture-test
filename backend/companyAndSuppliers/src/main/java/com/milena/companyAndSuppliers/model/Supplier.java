@@ -1,5 +1,6 @@
 package com.milena.companyAndSuppliers.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -32,7 +33,11 @@ public class Supplier {
     @Temporal(TemporalType.DATE)
     private Date birthdate;
 
-    @ManyToMany(mappedBy = "suppliers")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+            }, mappedBy = "suppliers")
     private Set<Company> companies = new HashSet<>();
 
     public Supplier() {

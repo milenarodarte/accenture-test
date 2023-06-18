@@ -17,21 +17,24 @@ public class CompanySupplier {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    public Long getId() {
+        return id;
+    }
+
+    public CompanySupplier() {
+    }
+
+    public CompanySupplier(Company company, Supplier supplier) {
+        this.company = company;
+        this.supplier = supplier;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Company getCompany() {
         return company;
-    }
-    public Long getSupplierId() {
-        if (supplier != null) {
-            return supplier.getId();
-        }
-        return null;
-    }
-    public Long getCompanyId() {
-        if (company != null) {
-            return company.getId();
-        }
-        return null;
     }
 
     public void setCompany(Company company) {
@@ -44,16 +47,5 @@ public class CompanySupplier {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-    }
-
-    public CompanySupplier(Long companyId, Long supplierId) {
-    }
-
-    public CompanySupplier(Company company, Supplier supplier, Long id, Long supplier_id) {
-        this.company = company;
-        this.supplier = supplier;
-        this.id = id;
-        this.getSupplierId = supplier_id;
-
     }
 }

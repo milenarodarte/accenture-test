@@ -1,21 +1,13 @@
 package com.milena.companyAndSuppliers.service;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
-
 
 @Service
 public class CEPValidator {
@@ -27,21 +19,55 @@ public class CEPValidator {
         this.restTemplate = restTemplate;
     }
 
+    public static class CepResponse {
+        private String cep;
+        private String uf;
+        private String cidade;
+        private String bairro;
+        private String logradouro;
 
-    public boolean validateCEP(String cep) {
-        String url = "http://cep.la/api/{cep}";
-        ParameterizedTypeReference<Map<String, Object>> responseType = new ParameterizedTypeReference<Map<String, Object>>() {};
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class, cep);
-        ResponseEntity<Map<String, Object>> responseJson = restTemplate.exchange(url, HttpMethod.GET, null, responseType);
-        if (response.getStatusCode().is2xxSuccessful()) {
-            Map<String, Object> responseBody = responseJson.getBody();}
-        else {
-            return false;
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        private String aux;
+
+        public String getAux() {
+            return aux;
         }
 
-        String productsJson = response.getBody();
+        public String getCep() {
+            return cep;
+        }
 
-        if (response.getStatusCode() == HttpStatus.OK) {
+        public String getUf() {
+            return uf;
+        }
+        public String getCidade() {
+            return cidade;
+        }
+
+        public String getBairro() {
+            return bairro;
+        }
+
+        public String getLogradouro() {
+            return logradouro;
+        }
+    }
+    public boolean validateCEP(String cep) throws IOException {
+
+        URL url = new URL("http://cep.la/"+cep);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestProperty("Accept", "application/json");
+
+        InputStream responseStream = connection.getInputStream();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        CepResponse cepResponse = mapper.readValue(responseStream, CepResponse.class);
+
+        String city = cepResponse.getCidade();
+
+        if (!city.isEmpty()){
             return true;
         } else {
             return false;
@@ -49,16 +75,25 @@ public class CEPValidator {
     }
 
     public boolean isParana(String cep) throws IOException {
+
         URL url = new URL("http://cep.la/"+cep);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestProperty("accept", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
 
         InputStream responseStream = connection.getInputStream();
 
         ObjectMapper mapper = new ObjectMapper();
 
-        return true;
+        CepResponse cepResponse = mapper.readValue(responseStream, CepResponse.class);
+
+        String uf = cepResponse.getUf();
+
+        if (uf.equals("PR")){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

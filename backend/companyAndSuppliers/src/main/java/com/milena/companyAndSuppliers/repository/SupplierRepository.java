@@ -13,4 +13,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, Long> {
     List<Supplier> findAllByName(@Param("name") String name);
     @Query("SELECT s FROM Supplier s WHERE s.cpfCnpj = :cpfCnpj")
     Optional<Supplier> findByCpfCnpj(@Param("cpfCnpj") String cpfCnpj);
+
+    // List<Supplier> findSuppliersByCompanyId(Long companyId);
 }

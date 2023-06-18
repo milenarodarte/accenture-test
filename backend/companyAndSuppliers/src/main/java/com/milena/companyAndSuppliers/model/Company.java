@@ -18,7 +18,11 @@ public class Company {
     @Column(length = 8, nullable = false)
     private String cep;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "company_supplier",
             joinColumns = @JoinColumn(name = "company_id"),
@@ -66,6 +70,21 @@ public class Company {
     public void setCep(String CEP) {
         this.cep = CEP;
     }
+
+    public void addSupplier(Supplier supplier){
+        this.suppliers.add(supplier);
+        supplier.getCompanies().add(this);
+    }
+
+    public void removeSupplier(long supplierId){
+        Supplier supplier = this.suppliers.stream().filter(s -> s.getId() == supplierId).findFirst().orElse(null);
+        if(supplier != null){
+            this.suppliers.remove(supplier);
+            supplier.getCompanies().remove(this);
+        }
+    }
+
+
 
 
 }

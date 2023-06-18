@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CompanySupplierRepository extends JpaRepository<CompanySupplier, Long> {
+    @Query("SELECT cs FROM CompanySupplier cs WHERE cs.company.id = :companyId AND cs.supplier.id = :supplierId")
+    List<CompanySupplier> findByCompanyIdAndSupplierId(@Param("companyId") Long companyId, @Param("supplierId") Long supplierId);
 
-
+    @Query("SELECT cs FROM CompanySupplier cs WHERE cs.company.id = :companyId ")
+    List<CompanySupplier> findByCompanyId(@Param("companyId") Long companyId);
+    @Query("SELECT cs FROM CompanySupplier cs WHERE cs.supplier.id = :supplierId ")
+    List<CompanySupplier> findBySupplierId(@Param("supplierId") Long supplierId);
 }
+
