@@ -9,9 +9,18 @@
 #### SPRING SERIALIZR para construir e inicilizar o projeto com Spring boot.
 #### MAVEN para compilar e gerir dependências.
 
-###Banco de dados
-####PostgreSQL
+### Banco de dados
+#### PostgreSQL
 ##### modelagem de banco de dados: https://app.diagrams.net/
+
+
+# COMO INICIALIZAR O PROJETO
+## IMPORTANTE: o arquivo application.properties.exemple contém as configurações de inicialização, porta do servidor e configurações do banco de dados. Adicione no mesmo nível dele um arquivo chamado "application.properties" e cole o conteúdo do application.properties.example nela. Em seguida configure o seu banco de dados local comn a URL (confira se sua porta é 5432), username e password. 
+
+#### clone o repositório em sua máquina
+#### varificar se tem em sua máquina o JDK em sua útilma versao (20), Spring Boot (3.1.0) e Maven instalado.
+#### importar o projeto para sua IDE de preferência. No desenvolvimento foi utilizado o Intellij IDEA
+#### rode o comando para abrir o servidor na porta configurada. A padrão é 3000: mvn spring-boot:run
 
 # ROTAS (http://localhost:3000)
 ## COMPANIES 
